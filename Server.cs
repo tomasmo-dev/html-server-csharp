@@ -51,7 +51,10 @@ namespace HtmlSocketServer
         public static bool checkLoginValidity(string[] headers)
         {
 
-            string jsonValues = headers[headers.Length - 1];
+            string jsonValues = ServerFunctions.getPostBody(headers);
+
+            if (jsonValues == "!?false?!") return false;
+
             var response = JObject.Parse(jsonValues);
 
             try
@@ -65,7 +68,7 @@ namespace HtmlSocketServer
                 {
                     return false;
                 }
-
+                    
             }
             catch (Exception)
             {

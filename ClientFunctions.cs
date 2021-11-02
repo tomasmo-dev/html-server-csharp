@@ -112,6 +112,41 @@ namespace HtmlSocketServer
 
         }
 
+        public static string getPostBody(string[] headers)
+        {
+            int index = 0;
+            int bodyHeaderIndex = 0;
+            int hits = 0;
+
+            string response;
+
+            foreach (string item in headers)
+            {
+                if (item == "\r")
+                {
+                    bodyHeaderIndex = index;
+                    hits++;
+                }
+                index++;
+            }
+            if (hits == 0 || hits > 1)
+            {
+                response = "!?false?!";
+            }
+
+
+            if (bodyHeaderIndex >= headers.Length)
+            {
+                response = "!?false?!";
+            }
+            else
+            {
+                response = headers[bodyHeaderIndex];
+            }
+
+
+            return response;
+        }
         public static byte[] getTTJSONresp()
         {
             string TableResponse = FileTypes.html_response + FileTypes.json_type + "\r\n";

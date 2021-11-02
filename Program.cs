@@ -47,7 +47,7 @@ namespace HtmlSocketServer
             loginCookies = reader[8];
 
 
-            ServerConfig.port = int.Parse(port); //Wooow
+            ServerConfig.port = int.Parse(port);
             ServerConfig.path = path;
             ServerConfig.Log_path = lpath;
             ServerConfig.ip_index = int.Parse(ip_choose);
