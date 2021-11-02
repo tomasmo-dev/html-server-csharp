@@ -136,7 +136,18 @@ namespace HtmlSocketServer
                 case "/$getId":
                     sysCall = true;
 
-                    string sesId = ServerFunctions.checkGenerateSID(headers, clientIp, false);
+                    string sesId = "";
+
+                    try
+                    {
+                        sesId = ServerFunctions.checkGenerateSID(headers, clientIp, false);
+
+                    }
+                    catch (Exception)
+                    {
+
+                        getuserQ = true;
+                    }
 
                     byte[] response = Encoding.ASCII.GetBytes(sesId);
 
@@ -144,7 +155,7 @@ namespace HtmlSocketServer
                                                        .Concat(Encoding.ASCII.GetBytes(FileTypes.json_type + "\r\n"))
                                                        .Concat(response).ToArray();
 
-                    handler.Send(r);
+                    ProtectedSocketSend(r, handler);
 
                     break;
                 #endregion
@@ -152,7 +163,7 @@ namespace HtmlSocketServer
                 #region ttReply
                 case "/$getTimeTable":
                     sysCall = true;
-                    handler.Send(ServerFunctions.getTTJSONresp());
+                    ProtectedSocketSend(ServerFunctions.getTTJSONresp(), handler);
                     break;
 
                 case "/TimeTable":
@@ -163,8 +174,16 @@ namespace HtmlSocketServer
                 #region load-securePG
                 case "/login-pages":
                     sysCall = true;
+                    string sId = "";
+                    try
+                    {
+                        sId = ServerFunctions.checkGenerateSID(headers, clientIp, true);
 
-                    string sId = ServerFunctions.checkGenerateSID(headers, clientIp, true);
+                    }
+                    catch (Exception)
+                    {
+                        getuserQ = true;
+                    }
 
                     byte[] pageResponse;
 
@@ -189,7 +208,7 @@ namespace HtmlSocketServer
                                                      .Concat(pageResponse)
                                                      .ToArray();
 
-                    handler.Send(CResponse);
+                    ProtectedSocketSend(CResponse, handler);
 
 
                     break;
