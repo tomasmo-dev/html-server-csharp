@@ -66,11 +66,10 @@ namespace HtmlSocketServer
 
         static void startup()
         {
+            debugSetup();
+            //Set_default_values();
+            
             sqlResources.ConnectToDB();
-
-            Set_default_values();
-
-            //debugSetup();
 
             Server.Start_listening();
         }

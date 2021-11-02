@@ -1,7 +1,5 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -50,8 +48,9 @@ namespace HtmlSocketServer
             //    w.WriteLine(s);
             //}
         }
-        static bool checkLoginValidity(string[] headers)
+        public static bool checkLoginValidity(string[] headers)
         {
+
             string jsonValues = headers[headers.Length - 1];
             var response = JObject.Parse(jsonValues);
 
@@ -75,7 +74,7 @@ namespace HtmlSocketServer
             }
         }
 
-        private static string GetCookies(string[] headers)
+        public static string GetCookies(string[] headers)
         {
             foreach (string item in headers)
             {
@@ -85,7 +84,7 @@ namespace HtmlSocketServer
                 }
             }
 
-            return "";
+            return "false";
         }
 
         private static void HandleClient(object arg)
@@ -134,38 +133,15 @@ namespace HtmlSocketServer
                 case "/$getId":
                     sysCall = true;
 
-                    if (checkLoginValidity(headers))
-                    {
-                        string sId;
-                        sId = SessionIdentifier.GenerateSessionId(clientIp);
-                        sIdResponse response = new sIdResponse(sId);
+                    string sesId = ServerFunctions.checkGenerateSID(headers, clientIp, false);
 
-                        string serializedId = JsonConvert.SerializeObject(response);
+                    byte[] response = Encoding.ASCII.GetBytes(sesId);
 
-                        byte[] resp = Encoding.ASCII.GetBytes(String.Format(SessionIdentifier.postResponse, 200, "OK") + "\r\n")
-                            .Concat(Encoding.ASCII.GetBytes(FileTypes.json_type + "\r\n"))
-                            .Concat(Encoding.ASCII.GetBytes(serializedId))
-                            .ToArray();
+                    byte[] r = Encoding.ASCII.GetBytes(String.Format(SessionIdentifier.postResponse, 200, "OK") + "\r\n")
+                                                       .Concat(Encoding.ASCII.GetBytes(FileTypes.json_type + "\r\n"))
+                                                       .Concat(response).ToArray();
 
-                        handler.Send(resp);
-
-                    }
-                    else
-                    {
-                        //send wrong user or pass msg
-                        string fId;
-                        fId = "wrong_creds";
-                        sIdResponse r = new sIdResponse(fId);
-
-                        string serialized = JsonConvert.SerializeObject(r);
-
-                        byte[] response = Encoding.ASCII.GetBytes(String.Format(SessionIdentifier.postResponse, 403, "FORBIDEN") + "\r\n").Concat(Encoding.ASCII.GetBytes(FileTypes.json_type + "\r\n"))
-                                                                                                                                                                .Concat(Encoding.ASCII.GetBytes(serialized))
-                                                                                                                                                                .ToArray();
-
-                        handler.Send(response);
-                    }
-
+                    handler.Send(r);
 
                     break;
                 #endregion
@@ -173,15 +149,7 @@ namespace HtmlSocketServer
                 #region ttReply
                 case "/$getTimeTable":
                     sysCall = true;
-
-                    string TableResponse = FileTypes.html_response + FileTypes.json_type + "\r\n";
-                    string ttJson = File.ReadAllText(ServerConfig.path + @"/bTt.json");
-
-                    byte[] tableBytes = Encoding.ASCII.GetBytes(TableResponse)
-                                                      .Concat(Encoding.ASCII.GetBytes(ttJson))
-                                                      .ToArray();
-
-                    handler.Send(tableBytes);
+                    handler.Send(ServerFunctions.getTTJSONresp());
                     break;
 
                 case "/TimeTable":
@@ -193,25 +161,14 @@ namespace HtmlSocketServer
                 case "/login-pages":
                     sysCall = true;
 
-                    Thread.Sleep(500);
-                    string userCookies = GetCookies(headers);
-
-                    if (userCookies == "")
-                    {
-                        userCookies = "null: null";
-                    }
-
-                    string cookies = Regex.Split(userCookies, ": ")[1];
-                    cookies = Regex.Replace(cookies, "\\r$", "");
-
-                    SqlCommand checkIdValidity = new SqlCommand($"SELECT * FROM sessionIds WHERE id LIKE '{cookies}'", SQL_REFERENCES.siteDB_Reference);
+                    string sId = ServerFunctions.checkGenerateSID(headers, clientIp, true);
 
                     byte[] pageResponse;
 
                     int rCode;
                     string rM;
 
-                    if (FLoader.countLines(checkIdValidity) > 0)
+                    if (sId != "false")
                     {
                         pageResponse = FLoader.GetBytesFromFile("/index.html");
                         rCode = 200;

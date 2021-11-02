@@ -12,7 +12,7 @@ namespace HtmlSocketServer
         public static void ConnectToDB()
         {
             SqlConnection tempConVar = new SqlConnection();
-            tempConVar.ConnectionString = Constants.SQL_c_string;
+            tempConVar.ConnectionString = Constants.SQLconString;
             SQL_REFERENCES.siteDB_Reference = tempConVar;
             SQL_REFERENCES.siteDB_Reference.Open();
 
