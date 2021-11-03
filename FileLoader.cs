@@ -89,6 +89,7 @@ namespace HtmlSocketServer
             while (true)
             { // update func
                 ttUpdates();
+                WeatherApi.LoadSaveWeatherData();
 
                 Thread.Sleep(TimeSpan.FromHours(2.6));
             }

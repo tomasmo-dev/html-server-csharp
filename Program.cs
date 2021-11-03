@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System;
+using System.Linq;
 
 namespace HtmlSocketServer
 {
@@ -58,7 +60,7 @@ namespace HtmlSocketServer
 
         }
 
-        static void debugSetup() // not required for normal use
+        static void debuggSetup() // not required for normal use
         {
             // Set variables for debugging here
             Constants.debuggerRes();
@@ -66,18 +68,19 @@ namespace HtmlSocketServer
 
         static void startup()
         {
-            debugSetup();
+            debuggSetup();
             //Set_default_values();
+            string json = WeatherApi.LoadSaveWeatherData();
+            Console.WriteLine(WeatherApi.getElementOfJSON(WeatherApi.getElementOfJSON(json, "current"), "sunset"));
             
-            sqlResources.ConnectToDB();
+            //sqlResources.ConnectToDB();
 
-            Server.Start_listening();
+            //Server.Start_listening();
         }
         static void Main(string[] args)
         {
-            //startup();
-
-
+            startup();
         }
+
     }
 }
