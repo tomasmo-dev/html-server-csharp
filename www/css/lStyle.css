@@ -1,0 +1,31 @@
+.textin{
+    width: 600px;
+    margin: auto;
+    margin: 300px 40%
+}
+.usr{
+    width: 200px;
+    text-align: center;
+    margin-bottom: 3px;
+}
+.lgn{
+    float: left;
+    width: 200px; 
+    text-align: center;
+}
+.username{
+    padding: 1px 2px;    
+}
+.password{
+    padding: 1px 2px;
+}
+.login{
+    margin: auto;
+    margin-top: 2.5px;
+    padding: 1 35px;
+}
+body{
+    background-color: #000000;
+    color: #FFFFFF;
+    margin: 10px;
+}

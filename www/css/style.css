@@ -1,0 +1,108 @@
+.PgMain{
+
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    
+    padding: 15px 2px;
+    
+    width: 50%;
+
+    border-color:#2f2f2f;
+    border-style: solid;
+    border-width: 4px;
+
+    border-radius: 5px;
+
+    background-color: #3e3e3e;
+}
+
+#header{
+    text-align: center;
+
+    color: #e6e6e6;
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    font-weight: 500;
+}
+
+#header-line{
+    height: 5px;
+    
+}
+.ServerAbout{
+
+    background-color: #939393;
+
+    color: #000000;
+
+    padding: 10px 5px;
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+
+    border: solid #848484 4px;
+    border-radius: 5px;
+
+}
+.dirTab{
+    font-size: 20px;
+    
+    background-color: #939393;
+
+    border: solid #848484 4px;
+    border-radius: 5px;
+
+    padding: 5px;
+}
+.bckbtn{
+    margin-left:50px ;
+    float: left;
+
+    text-decoration: none;
+
+    color: #000000;
+    background-color: #FFFFFF;
+    border: solid #FFFFFF 2px;
+    border-radius: 5px;
+    
+    padding: 5px 20px;
+}
+.bckbtn:hover{
+    transition-duration: 0.4s;
+    background-color: #009311;
+    color: #FFFFFF;
+    border-color: #009311;
+}
+.timetableContainer{
+    margin-top: 80px;
+}
+
+.btnclass{
+    text-decoration: none;
+    color: #000000;
+    background-color: #6c8b58;
+    border: solid 2px #6c8b58;
+
+    border-radius: 5px;
+
+    padding: 1px 4px;
+}
+.btnclass:hover{
+    transition-duration: 0.4s;
+    color: #FFFFFF;
+    border-color: #009311;
+    background-color: #009311;
+}
+
+.containerRow{
+    margin-top: 10px;
+}
+
+body{
+    /*background: rgb(184,0,0);*/
+    background: linear-gradient(139deg, rgba(184,0,0,1) 0%, rgba(0,76,212,1) 100%) no-repeat fixed;
+
+    box-sizing: content-box;
+}

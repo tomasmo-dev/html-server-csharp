@@ -1,0 +1,16 @@
+.TableParent{
+    text-align: center;
+}
+.TableChild{
+    border: 2px #234b0a solid;
+    border-radius: 5px;
+    background-color: #234b0a;
+    color: #FFFFFF;width: 20%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.DayLabel{
+    color: #FFFFFF;
+}body{
+    background-color: #000000; color: #FFFFFF;
+}

@@ -1,0 +1,58 @@
+{
+"day": "3. středa",
+"hourcards": [
+{
+"subject": "MAT",
+"time": "8:45 - 9:30",
+"room": "406",
+"group_name": "",
+"teacher": "TI",
+"added": "False",
+"changed": "False",
+"cancelled": "False"
+},{
+"subject": "ZEL",
+"time": "9:45 - 10:30",
+"room": "320",
+"group_name": "",
+"teacher": "SP",
+"added": "False",
+"changed": "False",
+"cancelled": "False"
+},{
+"subject": "MAT",
+"time": "10:45 - 11:30",
+"room": "320",
+"group_name": "",
+"teacher": "TI",
+"added": "False",
+"changed": "False",
+"cancelled": "False"
+},{
+"subject": "ALG",
+"time": "11:45 - 12:30",
+"room": "206",
+"group_name": "p",
+"teacher": "HS",
+"added": "False",
+"changed": "False",
+"cancelled": "False"
+},{
+"subject": "CJL",
+"time": "12:35 - 13:20",
+"room": "211",
+"group_name": "p",
+"teacher": "MR",
+"added": "False",
+"changed": "False",
+"cancelled": "False"
+},{
+"subject": "OBN",
+"time": "13:55 - 14:40",
+"room": "206",
+"group_name": "",
+"teacher": "TO",
+"added": "False",
+"changed": "False",
+"cancelled": "False"
+}]}
