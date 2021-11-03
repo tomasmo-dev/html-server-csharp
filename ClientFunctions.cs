@@ -152,7 +152,7 @@ namespace HtmlSocketServer
             string TableResponse = FileTypes.html_response + FileTypes.json_type + "\r\n";
             string ttJson = File.ReadAllText(ServerConfig.path + @"/bTt.json");
 
-            byte[] r = Encoding.ASCII.GetBytes(TableResponse).Concat(Encoding.ASCII.GetBytes(ttJson)).ToArray();
+            byte[] r = Encoding.UTF8.GetBytes(TableResponse).Concat(Encoding.ASCII.GetBytes(ttJson)).ToArray();
 
             return r;
         }

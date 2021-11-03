@@ -75,7 +75,8 @@ namespace HtmlSocketServer
         }
         static void Main(string[] args)
         {
-            startup();
+            //startup();
+
 
         }
     }

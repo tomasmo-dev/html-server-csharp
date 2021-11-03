@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # Personal Rules
 Constants.cs
+WeatherApi.cs

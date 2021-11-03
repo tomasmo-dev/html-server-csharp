@@ -250,7 +250,7 @@ namespace HtmlGenerator
 
         static string respPage = "<!DOCTYPE html>\n"
                                  + "<html lang=\"en\">\n"
-                                 + "<head><link rel=\"stylesheet\" href=\"css/tStyles.css\"></head>\n"
+                                 + "<head><link rel=\"stylesheet\" href=\"css/tStyles.css\"><meta charset=\"utf-8\"></head>\n"
                                  + "<body>\n"
                                  + "<div class=\"DayLabel\">\n"
                                  + "<h2 class=\"day\">{0}</h2>"
