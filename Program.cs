@@ -1,6 +1,5 @@
-﻿using System.IO;
-using System;
-using System.Linq;
+﻿using System;
+using System.IO;
 
 namespace HtmlSocketServer
 {
@@ -70,9 +69,18 @@ namespace HtmlSocketServer
         {
             debuggSetup();
             //Set_default_values();
-            string json = WeatherApi.LoadSaveWeatherData();
-            Console.WriteLine(WeatherApi.getElementOfJSON(WeatherApi.getElementOfJSON(json, "current"), "sunset"));
-            
+
+            //string json = WeatherApi.LoadSaveWeatherData();
+            string json = File.ReadAllText(@"C:\Users\tom\Desktop\ubuntu-server\www\wdata\currentWeatherData.json");
+
+            string minute = WeatherApi.getElementOfJSON(json, "hourly");
+            string[] minuteList = WeatherApi.getElementsFromJsonList(minute);
+            foreach (var item in minuteList)
+            {
+                Console.WriteLine(item);
+            }
+
+
             //sqlResources.ConnectToDB();
 
             //Server.Start_listening();

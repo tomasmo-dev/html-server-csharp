@@ -68,7 +68,7 @@ namespace HtmlSocketServer
                 {
                     return false;
                 }
-                    
+
             }
             catch (Exception)
             {
@@ -227,7 +227,22 @@ namespace HtmlSocketServer
                     filename = "/error_pages/exception_page.html";
                     break;
 
-                    #endregion
+                #endregion
+
+
+                #region W_API
+
+                case "/apis/Weather/":
+                    filename = "/apis/Weather/wapi.html";
+                    break;
+
+                case "/apis/Weather/$getBasic":
+
+
+                    break;
+
+                #endregion
+
             }
 
             if (!sysCall)

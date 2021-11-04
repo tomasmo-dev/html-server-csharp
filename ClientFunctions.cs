@@ -82,7 +82,7 @@ namespace HtmlSocketServer
                     response = "false";
                 }
             }
-            else if(cookies_found && !OnlyCheck)
+            else if (cookies_found && !OnlyCheck)
             {
                 string serializedId;
                 if (Server.checkLoginValidity(headers))
