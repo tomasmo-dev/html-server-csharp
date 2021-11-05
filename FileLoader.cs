@@ -143,10 +143,6 @@ namespace HtmlSocketServer
             byte[] ttBytes = client.DownloadData(selLink);
             File.WriteAllBytes(ServerConfig.path + @"/images/tt.jpg", ttBytes);
 
-            string ttJson = File.ReadAllText(path);
-
-            File.WriteAllText(ServerConfig.path + @"/timetable/betterTable.html", HtmlGenerator.jsonParser.MakeHtml(ttJson));
-
         }
 
         static void UpdatedUpdater(int day)

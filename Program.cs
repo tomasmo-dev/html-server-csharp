@@ -70,20 +70,9 @@ namespace HtmlSocketServer
             debuggSetup();
             //Set_default_values();
 
-            //string json = WeatherApi.LoadSaveWeatherData();
-            string json = File.ReadAllText(@"C:\Users\tom\Desktop\ubuntu-server\www\wdata\currentWeatherData.json");
+            sqlResources.ConnectToDB();
 
-            string minute = WeatherApi.getElementOfJSON(json, "hourly");
-            string[] minuteList = WeatherApi.getElementsFromJsonList(minute);
-            foreach (var item in minuteList)
-            {
-                Console.WriteLine(item);
-            }
-
-
-            //sqlResources.ConnectToDB();
-
-            //Server.Start_listening();
+            Server.Start_listening();
         }
         static void Main(string[] args)
         {

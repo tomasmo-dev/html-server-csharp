@@ -236,8 +236,13 @@ namespace HtmlSocketServer
                     filename = "/apis/Weather/wapi.html";
                     break;
 
-                case "/apis/Weather/$getBasic":
+                case "/apis/Weather/$getWeather":
+                    sysCall = true;
+                    string wJSON = WeatherApi.GetWeatherJson();
 
+                    byte[] byte_wJSON = Encoding.ASCII.GetBytes("HTTP/1.1 200 OK").Concat(Encoding.ASCII.GetBytes(FileTypes.json_type + "\r\n")).Concat(Encoding.ASCII.GetBytes(wJSON)).ToArray();
+
+                    ProtectedSocketSend(byte_wJSON, handler);
 
                     break;
 
