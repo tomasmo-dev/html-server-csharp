@@ -31,10 +31,10 @@ namespace HtmlSocketServer
                 return false;   // true?
             }
         }
-        static string generateSessionId_Object(string cIp)
+        static string generateSessionId_Object(string cIp, string username)
         {
             string sId;
-            sId = SessionIdentifier.GenerateSessionId(cIp);
+            sId = SessionIdentifier.GenerateSessionId(cIp, username);
             sIdResponse response = new sIdResponse(sId);
 
             string serializedId = JsonConvert.SerializeObject(response);
@@ -45,6 +45,9 @@ namespace HtmlSocketServer
         {
             string sid;
             bool cookies_found;
+
+            string postBody = getPostBody(headers);
+            string[] credentials = Server.getCredentials(postBody);
 
             string response;
 
@@ -57,12 +60,12 @@ namespace HtmlSocketServer
                 string serializedId;
                 if (Server.checkLoginValidity(headers))
                 {
-                    serializedId = generateSessionId_Object(cip);
+                    serializedId = generateSessionId_Object(cip, credentials[1]);
 
                 }
                 else
                 {
-                    //send wrong user or pass msg
+
                     string WId;
                     WId = "wrong_creds";
                     sIdResponse r = new sIdResponse(WId);
@@ -87,7 +90,7 @@ namespace HtmlSocketServer
                 string serializedId;
                 if (Server.checkLoginValidity(headers))
                 {
-                    serializedId = generateSessionId_Object(cip);
+                    serializedId = generateSessionId_Object(cip, credentials[1]);
                 }
                 else
                 {
@@ -141,7 +144,7 @@ namespace HtmlSocketServer
             }
             else
             {
-                response = headers[bodyHeaderIndex];
+                response = headers[bodyHeaderIndex + 1];
             }
 
 
@@ -156,5 +159,6 @@ namespace HtmlSocketServer
 
             return r;
         }
+
     }
 }

@@ -48,6 +48,19 @@ namespace HtmlSocketServer
             //    w.WriteLine(s);
             //}
         }
+        public static string[] getCredentials(string postBody)
+        {
+            string[] response = new string[2] { "false", "false" };
+
+            if (postBody == "!?false?!") return response;
+
+            var credentials = JObject.Parse(postBody);
+
+            response[0] = credentials["user"].ToString();
+            response[1] = credentials["pwd"].ToString();
+
+            return response;
+        }
         public static bool checkLoginValidity(string[] headers)
         {
 
@@ -210,8 +223,18 @@ namespace HtmlSocketServer
 
                     ProtectedSocketSend(CResponse, handler);
 
+                    break;
+
+                case "/login-pages/$getCurrentUser":
+                    sysCall = true;
+
+                    string cookieIdent = GetCookies(headers);
+
+
 
                     break;
+
+
                 #endregion
 
                 #region bot-redirects
@@ -229,7 +252,6 @@ namespace HtmlSocketServer
 
                 #endregion
 
-
                 #region W_API
 
                 case "/apis/Weather/":
@@ -246,6 +268,23 @@ namespace HtmlSocketServer
 
                     break;
 
+                #endregion
+
+
+                #region Server_Secret
+                case "/$GetSSecret":
+
+                    try
+                    {
+                        string secretSID = ServerFunctions.checkGenerateSID(headers, clientIp);
+                    }
+                    catch (Exception)
+                    {
+
+                        filename = "/error_pages/404.html";
+                    }
+
+                    break;
                 #endregion
 
             }

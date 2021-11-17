@@ -38,7 +38,7 @@ namespace HtmlSocketServer
 
         public static Dictionary<string, sesionId> ActiveSessions = new Dictionary<string, sesionId>();
 
-        public static string GenerateSessionId(string cIp)
+        public static string GenerateSessionId(string cIp, string username)
         {
             DateTime date = DateTime.Now;
             SHA512 hash = new SHA512Managed();
@@ -76,7 +76,7 @@ namespace HtmlSocketServer
             string formattedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             string sqlString = "USE SiteResources";
-            string insertString = $"INSERT INTO sessionIds VALUES ('{sesId}', '{formattedTime}')";
+            string insertString = $"INSERT INTO sessionIds VALUES ('{sesId}', '{formattedTime}', '{username}')";
 
             SqlCommand command = new SqlCommand(sqlString, SQL_REFERENCES.siteDB_Reference);
             SqlCommand command1 = new SqlCommand(insertString, SQL_REFERENCES.siteDB_Reference);
@@ -84,9 +84,7 @@ namespace HtmlSocketServer
             command.ExecuteNonQuery();
             command1.ExecuteNonQuery();
 
-
-
-            return (sesId);
+            return sesId;
 
         }
 
