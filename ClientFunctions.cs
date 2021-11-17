@@ -150,6 +150,29 @@ namespace HtmlSocketServer
 
             return response;
         }
+
+        public static string getUsername(string cid)
+        {
+            string response = "false";
+
+            if (response != "false")
+            {
+                SqlCommand queryID = new SqlCommand($"SELECT * FROM sessionIds WHERE id LIKE '{cid}'", SQL_REFERENCES.siteDB_Reference);
+
+                if (!(FLoader.countLines(queryID) <= 0) && !(FLoader.countLines(queryID) > 1))
+                {
+                    SqlDataReader userReader = queryID.ExecuteReader();
+
+                    userReader.Read();
+
+                    response = userReader.GetString(2);
+                    
+                }
+            }
+
+            return response;
+        }
+
         public static byte[] getTTJSONresp()
         {
             string TableResponse = FileTypes.html_response + FileTypes.json_type + "\r\n";

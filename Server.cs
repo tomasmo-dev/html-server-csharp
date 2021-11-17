@@ -230,7 +230,22 @@ namespace HtmlSocketServer
 
                     string cookieIdent = GetCookies(headers);
 
+                    string username = ServerFunctions.getUsername(cookieIdent);
 
+                    byte[] u_content;
+
+                    if (username == "false")
+                    {
+                        u_content = Encoding.ASCII.GetBytes("Server-Side Error");
+                    }
+                    else
+                    {
+                        u_content = Encoding.ASCII.GetBytes(username);
+                    }
+
+                    byte[] u_response = Encoding.ASCII.GetBytes($"HTTP/1.1 200 OK\r\n").Concat(Encoding.ASCII.GetBytes(FileTypes.html_type + "\r\n")).Concat(u_content).ToArray();
+
+                    ProtectedSocketSend(u_response, handler);
 
                     break;
 
