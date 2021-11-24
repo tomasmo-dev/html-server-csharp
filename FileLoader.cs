@@ -88,6 +88,7 @@ namespace HtmlSocketServer
         {
             while (true)
             { // update func
+
                 ttUpdates();
                 WeatherApi.LoadSaveWeatherData();
 
@@ -139,15 +140,35 @@ namespace HtmlSocketServer
 
 
             UpdatedUpdater(day);
+            byte[] ttBytes;
 
-            byte[] ttBytes = client.DownloadData(selLink);
+            try
+            {
+                ttBytes = client.DownloadData(selLink);
+
+            }
+            catch (Exception)
+            {
+                ttBytes = client.DownloadData("https://http.cat/503");
+            }
             File.WriteAllBytes(ServerConfig.path + @"/images/tt.jpg", ttBytes);
 
         }
 
         static void UpdatedUpdater(int day)
         {
-            string JSONtt = TimeTableImporter.ttJSONLoader.htmlTimeTDayToJSON(TimeTableImporter.ttJSONLoader.getTimeTableForDay(day));
+
+            string JSONtt;
+
+            try
+            {
+                JSONtt = TimeTableImporter.ttJSONLoader.htmlTimeTDayToJSON(TimeTableImporter.ttJSONLoader.getTimeTableForDay(day));
+
+            }
+            catch (Exception)
+            {
+                JSONtt = "{ \"error\": \"Internal server Error\"}";
+            }
 
             File.WriteAllText(path, JSONtt);
         }
